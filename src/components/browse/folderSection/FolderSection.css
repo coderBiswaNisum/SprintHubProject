@@ -1,0 +1,21 @@
+.folderSection {
+  background: rgb(20, 0, 136);
+  width: 15rem;
+  height: 100vh;
+  padding-top: 1rem;
+  color: white;
+}
+
+.folderTabs{
+      padding-left: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin:0px;
+}
+
+.folderIcon {
+    padding-left: 5px;
+    padding-right:5px;
+  
+}

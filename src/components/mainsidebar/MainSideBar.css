@@ -1,0 +1,36 @@
+
+
+.sideBar {
+  background: linear-gradient(to bottom,blue,#07c3ff);
+  width: 5rem;
+  height: 100vh; 
+  padding-top: 1rem; 
+}
+
+.sideBarItem{
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+  color: white;
+  font-size:10px;
+  padding-top:1rem;
+  padding-bottom: 1rem;
+ 
+}
+
+.sideBarItem.active{
+  display: flex;
+  flex-direction: column;
+  background: rgb(20, 0, 136);
+  align-items: center;
+  color: white;
+  font-size:10px;
+ 
+}
+
+.sideIcons{
+  font-size: 25px;
+font-weight: 800;
+
+}
