@@ -1,21 +1,46 @@
 .folderSection {
   background: rgb(20, 0, 136);
-  width: 15rem;
+  width: 35rem;
   height: 100vh;
   padding-top: 1rem;
   color: white;
+  padding-left: 1rem;
 }
 
-.folderTabs{
-      padding-left: 1rem;
+.folderTabs {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin:0px;
+  margin: 0px;
 }
 
 .folderIcon {
-    padding-left: 5px;
-    padding-right:5px;
-  
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.subFolderTabs {
+  padding-left: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px;
+}
+
+.subFolderTabs p {
+  margin: 0;
+  padding-left: 3px;
+  font-size: 12px;
+}
+
+.isFolder {
+  background-color: rgb(255, 255, 255);
+  color:rgb(0, 0, 131);
+  border-radius: 3px;
+  margin-top: 2px;
+  padding: 2px 10px 2px 10px;
+  margin-left: -0.5rem;
+  width:70%;
+  font-weight:bold;
 }
