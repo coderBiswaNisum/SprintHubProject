@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import "./FolderSection.css";
+// import "./FolderSection.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createFile,
   createFolder,
-} from "../../../features/createFolderFilesSlice";
-import {openFileLink} from '../../../features/openFileSlice'
-import { changeBreadcrumb } from "../../../features/breadcrumbSlice";
-
-function FolderSection() {
-  const value = useSelector((state) => state.create);
+} from "../../features/createFolderFilesSlice";
+import {openFileLink} from '../../features/openFileSlice'
+function Manage() {
+      const value = useSelector((state) => state.create);
   const navbarStatus = useSelector((state) => state.navbarChange.value);
   const dispatch = useDispatch();
 
@@ -30,7 +28,7 @@ function FolderSection() {
             className={val.type === "folder" ? "isFolder" : ""}
             style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={() =>
-              val.type === "folder" ? toggleFolder(val.name) : (dispatch(openFileLink(val.url),dispatch(changeBreadcrumb(val.name))))
+              val.type === "folder" ? toggleFolder(val.name) : dispatch(openFileLink(val.url))
             }
           >
             {val.type === "folder" ? (
@@ -52,14 +50,14 @@ function FolderSection() {
                 className="bi bi-folder-plus folderIcon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  dispatch(createFolder(val.id));
+                  dispatch(createFolder(val.name));
                 }}
               ></i>
               <i
                 className="bi bi-file-earmark-plus folderIcon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  dispatch(createFile(val.id));
+                  dispatch(createFile(val.name));
                 }}
               ></i>
             </div>
@@ -76,9 +74,9 @@ function FolderSection() {
       </div>
     ));
   }
-
   return (
-    <div className="folderSection">
+    <div className="folderSection" style={{width:'100%'}}>
+
       <div className="folderTabs">
         <div>
           <h5>Browse</h5>
@@ -86,18 +84,19 @@ function FolderSection() {
         <div>
           <i
             className="bi bi-folder-plus folderIcon"
-            onClick={() => dispatch(createFolder(value.id))}
+            onClick={() => dispatch(createFolder(value))}
           ></i>
           <i
             className="bi bi-file-earmark-plus folderIcon"
-            onClick={() => dispatch(createFile(value.id))}
+            onClick={() => dispatch(createFile(value))}
           ></i>
         </div>
       </div>
 
       {displayLoop(value)}
     </div>
+   
   );
 }
 
-export default FolderSection;
+export default Manage;

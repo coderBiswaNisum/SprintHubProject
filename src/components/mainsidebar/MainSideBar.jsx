@@ -52,6 +52,14 @@ if(location.pathname==='/search') dispatch(changeNavbarState(2))
           <i className="bi bi-folder sideIcons"></i>Browse
         </div>
       </Link>
+      <Link to="/manage">
+        <div
+          className={`sideBarItem ${value === 4 ? "active" : ""}`}
+          onClick={() => dispatch(changeNavbarState(4))}
+        >
+          <i className="bi bi-gear sideIcons"></i>Manage
+        </div>
+      </Link>
     </div>
   );
 }

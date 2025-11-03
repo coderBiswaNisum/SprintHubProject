@@ -7,16 +7,12 @@ import Notifications from "./pages/notifications/Notifications";
 import Search from "./pages/search/Search";
 import Browse from "./pages/browse/Browse";
 import { useSelector } from "react-redux";
+import Manage from "./pages/manage/Manage";
 
 function App() {
   const navbarState = useSelector(state=> state.navbarChange.value)
-  // console.log("This is from app",navbarState)
-  const navigate = useNavigate()
-  // useEffect(()=>{
-  //   if(navbarState===0){
-  //     navigate('/')
-  //   }
-  // },[])
+
+
 
   return (
     <div className="wholeScreen">
@@ -27,6 +23,7 @@ function App() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/search" element={<Search />} />
         <Route path="/browse" element={<Browse />} />
+        <Route path="/manage" element={<Manage />} />
       </Routes>
     </div>
   );
