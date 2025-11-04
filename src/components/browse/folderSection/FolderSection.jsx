@@ -23,7 +23,7 @@ function FolderSection() {
   };
 
   function displayLoop(x) {
-    return x?.map((val) => (
+    return x.value?.map((val) => (
       <div key={val.name} className="folderContainer">
         <div className="subFolderTabs">
           <div

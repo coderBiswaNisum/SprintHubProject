@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let initialState = [
+let initialState = {value:[
   {
     id: 1,
     type: "folder",
@@ -68,7 +68,7 @@ let initialState = [
   {
     id: 11,
     type: "file",
-    name: "Dummy Summery File",
+    name: "Sprint _Hub",
     url: "https://docs.google.com/spreadsheets/d/1tUO5g6odx8j1_wCYe6_qFrTc67p2PXPNVHlQ8iwhj3o/edit?usp=sharing",
   },
   {
@@ -76,13 +76,16 @@ let initialState = [
     type: "folder",
     name: "GAP",
   },
-];
+]};
 let maxId = 100;
 
 function insertInto(arrVal,gotId,newObj){
-arrVal.forEach(v => {
+  // let tempArr = [...arrVal]
+  console.log(arrVal)
+arrVal.forEach((v,i) => {
   if(v.id === gotId){
-    arrVal.children.push(newObj)
+    let parentArr = arrVal[i].children;
+    parentArr.push(newObj)
   }
   if(v.children&&v.children.length>0){
     insertInto(v.children,gotId,newObj)
@@ -97,10 +100,13 @@ const createFolderFilesSlice = createSlice({
     createFolder(state, action) {
       maxId +=1;
       const nameEntered = prompt("Enter Your Folder Name:");
-      const objectVal = action.payload;
-      const newFolder = {id:maxId,type:'folder',name:nameEntered,children:[]}
-      const newInitialState = state.initialState
-      insertInto(newInitialState,objectVal,newFolder)
+      // const objectVal = action.payload;
+      // const newFolder = {id:maxId,type:'folder',name:nameEntered,children:[]}
+      const arrr = state.value
+      const newInitialState = [...arrr]
+      // console.log("initialState:",state.value,'targetId:',action.payload,"newObject:",{id:maxId,type:'folder',name:nameEntered,children:[]})
+      insertInto(newInitialState,action.payload,{id:maxId,type:'folder',name:nameEntered,children:[]})
+      // console.log(state.value)
     },
     createFile(state, action) {
             maxId +=1;
