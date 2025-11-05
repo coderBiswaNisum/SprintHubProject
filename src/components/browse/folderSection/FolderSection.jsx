@@ -27,20 +27,30 @@ function FolderSection() {
       <div key={val.name} className="folderContainer">
         <div className="subFolderTabs">
           <div
-            className={val.type === "folder" ? "isFolder" : ""}
+            className={val.type === "folder" ? "isFolder" : "isFile"}
             style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={() =>
               val.type === "folder" ? toggleFolder(val.id) : (dispatch(openFileLink(val.url),dispatch(changeBreadcrumb(val.name))))
             }
           >
             {val.type === "folder" ? (
+              <div>
               <i
                 className={`bi ${
-                  openFolders[val.id] ? "bi-folder2-open" : "bi-folder"
+                  openFolders[val.id] ? "bi-chevron-down" : "bi-chevron-right"
+                }`}
+                style={{fontSize:'12px',marginRight:'5px'}}
+              ></i>
+              <i
+              style={{color:'#f7c224'}}
+                className={`bi ${
+                  openFolders[val.id] ? "bi-folder2-open" : "bi-folder "
                 }`}
               ></i>
+              </div>
             ) : (
-              <i className="bi bi-file-earmark"></i>
+              
+              <i style={{color:'#294bca'}} className="bi bi-file-earmark"></i>
             )}
 
             <p>{val.name}</p>

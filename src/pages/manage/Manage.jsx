@@ -25,18 +25,27 @@ function Manage() {const value = useSelector((state) => state.create.value);
       <div key={val.name} className="folderContainer">
         <div className="subFolderTabs" style={{justifyContent:"flex-start"}}>
           <div
-            className={val.type === "folder" ? "isFolder" : ""}
+            className={val.type === "folder" ? "isFolder" : "isFile"}
             style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={() =>
               val.type === "folder" ? toggleFolder(val.id) : (dispatch(updateFileLink(val.id)))
             }
           >
             {val.type === "folder" ? (
+               <div>
               <i
                 className={`bi ${
-                  openFolders[val.id] ? "bi-folder2-open" : "bi-folder"
+                  openFolders[val.id] ? "bi-chevron-down" : "bi-chevron-right"
+                }`}
+                style={{fontSize:'12px',marginRight:'5px'}}
+              ></i>
+              <i
+              style={{color:'#f7c224'}}
+                className={`bi ${
+                  openFolders[val.id] ? "bi-folder2-open" : "bi-folder "
                 }`}
               ></i>
+              </div>
             ) : (
               <i className="bi bi-file-earmark"></i>
             )}
@@ -80,7 +89,7 @@ function Manage() {const value = useSelector((state) => state.create.value);
       <div className="folderTabs" style={{justifyContent:'space-around'}}>
         <div>
           <h5>Manage</h5>
-          <p>Select the file to update the Link:</p>
+          <p>Click on the file to update it's Link:</p>
         </div>
         <div>
           <i

@@ -144,6 +144,12 @@ const createFolderFilesSlice = createSlice({
     updateFileLink(state,action){
       let targetId = action.payload
       state.value = updateLink(state.value,targetId)
+    },
+    createNewProject(state){
+      let newProjectName = prompt('Enter the New Project Name:')
+    },
+    createProjectFile(state){
+      let newPFileName = prompt('Enter the New File Name:')
     }
   },
 });

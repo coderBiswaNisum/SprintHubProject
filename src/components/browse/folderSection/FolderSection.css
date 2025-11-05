@@ -1,10 +1,11 @@
 .folderSection {
-  background: #b0ebff;
+  background: #d9f5ff;
   width: 30rem;
   height: 100vh;
   padding-top: 1rem;
-  color: rgb(0, 0, 131);
+  color: rgb(85, 85, 85);
   padding-left: 1rem;
+  font-weight: 100 !important;
 }
 
 .folderTabs {
@@ -36,11 +37,25 @@
 
 .isFolder {
   background-color: rgb(255, 255, 255);
-  color:rgb(0, 0, 131);
+  color:rgb(85, 85, 85);
   border-radius: 3px;
   margin-top: 2px;
   padding: 2px 10px 2px 10px;
   margin-left: -0.5rem;
   width:80%;
   font-weight:bold;
+  box-shadow: -1px 1px 1px #dcdcdc;
+  border: 1px solid rgb(201, 201, 20);
+}
+
+.isFile {
+  border-radius: 3px;
+  margin-top: 2px;
+  padding: 2px 10px 2px 10px;
+  margin-left: -0.5rem;
+  width:80%;
+  font-weight:400;
+  /* box-shadow: -1px 1px 1px #dcdcdc; */
+  border:1px solid rgba(88, 171, 255, 0.782);
+  background-color: white;
 }
