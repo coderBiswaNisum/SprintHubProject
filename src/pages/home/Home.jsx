@@ -2,9 +2,9 @@ import React from 'react'
 
 function Home() {
   return (
-    <div>
-      Home is working.
-      Work in progress for Browser Tab.
+       <div style={{margin:'auto'}}>
+      <h1> Home Page is working.<br/><br/>
+      It is waiting for its page design.</h1>
     </div>
   )
 }

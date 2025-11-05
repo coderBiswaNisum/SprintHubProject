@@ -9,34 +9,34 @@ import {openFileLink} from '../../../features/openFileSlice'
 import { changeBreadcrumb } from "../../../features/breadcrumbSlice";
 
 function FolderSection() {
-  const value = useSelector((state) => state.create);
+  const value = useSelector((state) => state.create.value);
   const navbarStatus = useSelector((state) => state.navbarChange.value);
   const dispatch = useDispatch();
 
   const [openFolders, setOpenFolders] = useState({});
 
-  const toggleFolder = (folderName) => {
+  const toggleFolder = (folderId) => {
     setOpenFolders((prev) => ({
       ...prev,
-      [folderName]: !prev[folderName],
+      [folderId]: !prev[folderId],
     }));
   };
 
   function displayLoop(x) {
-    return x.value?.map((val) => (
+    return x?.map((val) => (
       <div key={val.name} className="folderContainer">
         <div className="subFolderTabs">
           <div
             className={val.type === "folder" ? "isFolder" : ""}
             style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={() =>
-              val.type === "folder" ? toggleFolder(val.name) : (dispatch(openFileLink(val.url),dispatch(changeBreadcrumb(val.name))))
+              val.type === "folder" ? toggleFolder(val.id) : (dispatch(openFileLink(val.url),dispatch(changeBreadcrumb(val.name))))
             }
           >
             {val.type === "folder" ? (
               <i
                 className={`bi ${
-                  openFolders[val.name] ? "bi-folder2-open" : "bi-folder"
+                  openFolders[val.id] ? "bi-folder2-open" : "bi-folder"
                 }`}
               ></i>
             ) : (
@@ -67,7 +67,7 @@ function FolderSection() {
         </div>
 
         {val.type === "folder" &&
-          openFolders[val.name] &&
+          openFolders[val.id] &&
           val.children?.length > 0 && (
             <div className="subFolderChildren" style={{ marginLeft: "20px" }}>
               {displayLoop(val.children)}

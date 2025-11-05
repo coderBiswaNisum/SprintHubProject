@@ -8,7 +8,8 @@ export const openFileSlice = createSlice({
     reducers:{
         openFileLink(state,action){
             state.link = action.payload
-        }
+        },
+        
     }
 })
 

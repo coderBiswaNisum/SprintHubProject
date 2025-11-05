@@ -1,40 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import "./FolderSection.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createFile,
   createFolder,
+  updateFileLink
 } from "../../features/createFolderFilesSlice";
 import {openFileLink} from '../../features/openFileSlice'
-function Manage() {
-      const value = useSelector((state) => state.create);
+function Manage() {const value = useSelector((state) => state.create.value);
   const navbarStatus = useSelector((state) => state.navbarChange.value);
   const dispatch = useDispatch();
 
   const [openFolders, setOpenFolders] = useState({});
 
-  const toggleFolder = (folderName) => {
+  const toggleFolder = (folderId) => {
     setOpenFolders((prev) => ({
       ...prev,
-      [folderName]: !prev[folderName],
+      [folderId]: !prev[folderId],
     }));
   };
 
   function displayLoop(x) {
     return x?.map((val) => (
       <div key={val.name} className="folderContainer">
-        <div className="subFolderTabs">
+        <div className="subFolderTabs" style={{justifyContent:"flex-start"}}>
           <div
             className={val.type === "folder" ? "isFolder" : ""}
             style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={() =>
-              val.type === "folder" ? toggleFolder(val.name) : dispatch(openFileLink(val.url))
+              val.type === "folder" ? toggleFolder(val.id) : (dispatch(updateFileLink(val.id)))
             }
           >
             {val.type === "folder" ? (
               <i
                 className={`bi ${
-                  openFolders[val.name] ? "bi-folder2-open" : "bi-folder"
+                  openFolders[val.id] ? "bi-folder2-open" : "bi-folder"
                 }`}
               ></i>
             ) : (
@@ -50,14 +50,14 @@ function Manage() {
                 className="bi bi-folder-plus folderIcon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  dispatch(createFolder(val.name));
+                  dispatch(createFolder(val.id));
                 }}
               ></i>
               <i
                 className="bi bi-file-earmark-plus folderIcon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  dispatch(createFile(val.name));
+                  dispatch(createFile(val.id));
                 }}
               ></i>
             </div>
@@ -65,7 +65,7 @@ function Manage() {
         </div>
 
         {val.type === "folder" &&
-          openFolders[val.name] &&
+          openFolders[val.id] &&
           val.children?.length > 0 && (
             <div className="subFolderChildren" style={{ marginLeft: "20px" }}>
               {displayLoop(val.children)}
@@ -74,28 +74,30 @@ function Manage() {
       </div>
     ));
   }
+
   return (
     <div className="folderSection" style={{width:'100%'}}>
-
-      <div className="folderTabs">
+      <div className="folderTabs" style={{justifyContent:'space-around'}}>
         <div>
-          <h5>Browse</h5>
+          <h5>Manage</h5>
+          <p>Select the file to update the Link:</p>
         </div>
         <div>
           <i
             className="bi bi-folder-plus folderIcon"
-            onClick={() => dispatch(createFolder(value))}
+            style={{fontSize:'2rem'}}
+            onClick={() => dispatch(createFolder(value.id))}
           ></i>
           <i
             className="bi bi-file-earmark-plus folderIcon"
-            onClick={() => dispatch(createFile(value))}
+            style={{fontSize:'2rem',marginLeft:'2rem'}}
+            onClick={() => dispatch(createFile(value.id))}
           ></i>
         </div>
       </div>
 
       {displayLoop(value)}
     </div>
-   
   );
 }
 
