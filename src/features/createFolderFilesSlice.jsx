@@ -76,17 +76,31 @@ let initialState = {
       id: 12,
       type: "folder",
       name: "GAP",
-      children: [],
+      children: [{
+      id: 15,
+      type: "file",
+      name: "App Features",
+      url: "https://docs.google.com/document/d/18bM0PKyPLHEDzaTGyK-pMfcujhFSGki-_BpKJOW3cYU/edit?usp=sharing",
+    },{
+      id: 16,
+      type: "file",
+      name: "GAP PowerBI Report",
+      url: "https://app.powerbi.com/reportEmbed?reportId=7c43af94-4751-4aa7-be8c-31ddcf2f102f&autoAuth=true&ctid=06408ebc-5eb8-4b0d-827f-76dd3b58bc84",
+    }],
     },
   ],
 };
 // let maxId = 100;
 
 function insertInto(arrVal, gotId, newObj) {
+  if(gotId === 0){
+    arrVal.push(newObj)
+    return arrVal
+  }
   let arrVal2 = arrVal?.map((v) => {
     if (v.id === gotId) {
       v.children.push(newObj);
-      console.log(v.children);
+      // console.log(v.children);
     }
     if (v.children && v.children.length > 0) {
       insertInto(v.children, gotId, newObj);
@@ -105,6 +119,23 @@ function updateLink(arr,targetId){
   }
   if(v.children && v.children.length>0){
     updateLink(v.children,targetId)
+  }
+  return v
+ }
+
+)
+
+return arr2
+}
+function updateName(arr,targetId){
+
+ let arr2 = arr.map(v=> {
+  if(v.id===targetId){
+    const newName = prompt(`Your current File/Folder Name is:\n\n${v.name}\n\n Enter the New Name below and press OK to Update:`)
+    newName && (v.name = newName)
+  }
+  if(v.children && v.children.length>0){
+    updateName(v.children,targetId)
   }
   return v
  }
@@ -141,18 +172,22 @@ const createFolderFilesSlice = createSlice({
       const newVal = insertInto(state.value, objectVal, newFile);
       state.value = newVal;
     },
+    
     updateFileLink(state,action){
       let targetId = action.payload
       state.value = updateLink(state.value,targetId)
     },
-    createNewProject(state){
-      let newProjectName = prompt('Enter the New Project Name:')
+    renameFile(state,action){
+      let targetId = action.payload
+      state.value = updateName(state.value,targetId)
     },
-    createProjectFile(state){
-      let newPFileName = prompt('Enter the New File Name:')
-    }
+    deleteFile(state,action){
+      let targetId = action.payload
+      state.value = updateName(state.value,targetId)
+    },
+
   },
 });
 
-export const { createFile, createFolder,updateFileLink } = createFolderFilesSlice.actions;
+export const { createFile, createFolder,updateFileLink,renameFile,deleteFile } = createFolderFilesSlice.actions;
 export default createFolderFilesSlice.reducer;

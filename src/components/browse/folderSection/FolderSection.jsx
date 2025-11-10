@@ -5,8 +5,13 @@ import {
   createFile,
   createFolder,
 } from "../../../features/createFolderFilesSlice";
-import {openFileLink} from '../../../features/openFileSlice'
+import { openFileLink } from "../../../features/openFileSlice";
 import { changeBreadcrumb } from "../../../features/breadcrumbSlice";
+import FolderImg from "/folder.webp";
+import FolderOpenImg from "/open-folder.webp";
+import FileImg from "/file.webp";
+import AddFolderImg from "/add-folder.webp";
+import AddFileImg from "/add-document.webp";
 
 function FolderSection() {
   const value = useSelector((state) => state.create.value);
@@ -30,27 +35,42 @@ function FolderSection() {
             className={val.type === "folder" ? "isFolder" : "isFile"}
             style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
             onClick={() =>
-              val.type === "folder" ? toggleFolder(val.id) : (dispatch(openFileLink(val.url),dispatch(changeBreadcrumb(val.name))))
+              val.type === "folder"
+                ? toggleFolder(val.id)
+                : dispatch(
+                    openFileLink(val.url),
+                    dispatch(changeBreadcrumb(val.name))
+                  )
             }
           >
             {val.type === "folder" ? (
               <div>
-              <i
-                className={`bi ${
-                  openFolders[val.id] ? "bi-chevron-down" : "bi-chevron-right"
-                }`}
-                style={{fontSize:'12px',marginRight:'5px'}}
-              ></i>
-              <i
-              style={{color:'#f7c224'}}
-                className={`bi ${
-                  openFolders[val.id] ? "bi-folder2-open" : "bi-folder "
-                }`}
-              ></i>
+                <i
+                  className={`bi ${
+                    openFolders[val.id] ? "bi-chevron-down" : "bi-chevron-right"
+                  }`}
+                  style={{ fontSize: "12px", marginRight: "5px" }}
+                ></i>
+
+                {openFolders[val.id] ? (
+                  <img
+                    src={FolderOpenImg}
+                    alt="Folder Image"
+                    width="17"
+                    className="folderIcon"
+                  />
+                ) : (
+                  <img
+                    src={FolderImg}
+                    alt="Folder Image"
+                    width="17"
+                    className="folderIcon"
+                  />
+                )}
               </div>
             ) : (
-              
-              <i style={{color:'#294bca'}} className="bi bi-file-earmark"></i>
+              <img src={FileImg} alt="Folder Image" width="17" />
+              // <i style={{color:'#294bca'}} className="bi bi-file-earmark"></i>
             )}
 
             <p>{val.name}</p>
@@ -58,20 +78,39 @@ function FolderSection() {
 
           {val.type === "folder" && (
             <div>
-              <i
+              {/* <i
                 className="bi bi-folder-plus folderIcon"
                 onClick={(e) => {
                   e.stopPropagation();
                   dispatch(createFolder(val.id));
                 }}
-              ></i>
-              <i
+              ></i> */}
+              <img
+                src={AddFolderImg}
+                alt="Add Folder Image"
+                width="20"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(createFolder(val.id));
+                }}
+              />
+              {/* <i
                 className="bi bi-file-earmark-plus folderIcon"
                 onClick={(e) => {
                   e.stopPropagation();
                   dispatch(createFile(val.id));
                 }}
-              ></i>
+              ></i> */}
+              <img
+                src={AddFileImg}
+                alt="Add File Image"
+                width="19"
+                style={{ marginLeft: "8px" }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(createFile(val.id));
+                }}
+              />
             </div>
           )}
         </div>
@@ -94,14 +133,33 @@ function FolderSection() {
           <h5>Browse</h5>
         </div>
         <div>
-          <i
+          {/* <i
             className="bi bi-folder-plus folderIcon"
-            onClick={() => dispatch(createFolder(value.id))}
-          ></i>
-          <i
+            onClick={() => dispatch(createFolder(0))}
+          ></i> */}
+          <img
+            src={AddFolderImg}
+            alt="Add Folder Image"
+            width="20"
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(createFolder(0));
+            }}
+          />
+          {/* <i
             className="bi bi-file-earmark-plus folderIcon"
-            onClick={() => dispatch(createFile(value.id))}
-          ></i>
+            onClick={() => dispatch(createFile(0))}
+          ></i> */}
+          <img
+            src={AddFileImg}
+            alt="Add File Image"
+            width="19"
+            style={{ marginLeft: "8px" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(createFile(0));
+            }}
+          />
         </div>
       </div>
 
