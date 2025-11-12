@@ -78,13 +78,7 @@ function FolderSection() {
 
           {val.type === "folder" && (
             <div>
-              {/* <i
-                className="bi bi-folder-plus folderIcon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(createFolder(val.id));
-                }}
-              ></i> */}
+           
               <img
                 src={AddFolderImg}
                 alt="Add Folder Image"
@@ -94,13 +88,7 @@ function FolderSection() {
                   dispatch(createFolder(val.id));
                 }}
               />
-              {/* <i
-                className="bi bi-file-earmark-plus folderIcon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(createFile(val.id));
-                }}
-              ></i> */}
+              
               <img
                 src={AddFileImg}
                 alt="Add File Image"

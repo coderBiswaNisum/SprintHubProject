@@ -127,7 +127,7 @@ function updateLink(arr,targetId){
 
 return arr2
 }
-function updateName(arr,targetId){
+function renameById(arr,targetId){
 
  let arr2 = arr.map(v=> {
   if(v.id===targetId){
@@ -135,7 +135,28 @@ function updateName(arr,targetId){
     newName && (v.name = newName)
   }
   if(v.children && v.children.length>0){
-    updateName(v.children,targetId)
+    renameById(v.children,targetId)
+  }
+  return v
+ }
+
+)
+
+return arr2
+}
+
+function deleteById(arr,targetId){
+
+ let arr2 = arr.map(v=> {
+  if(v.id===targetId){
+    // const newName = prompt(`Your current File/Folder Name is:\n\n${v.name}\n\n Enter the New Name below and press OK to Update:`)
+    let res = confirm('You sure you want to delete?')
+    console.log(res)
+    delete(arr.v)
+    // newName && (v.name = newName)
+  }
+  if(v.children && v.children.length>0){
+    deleteById(v.children,targetId)
   }
   return v
  }
@@ -179,11 +200,11 @@ const createFolderFilesSlice = createSlice({
     },
     renameFile(state,action){
       let targetId = action.payload
-      state.value = updateName(state.value,targetId)
+      state.value = renameById(state.value,targetId)
     },
     deleteFile(state,action){
       let targetId = action.payload
-      state.value = updateName(state.value,targetId)
+      state.value = deleteById(state.value,targetId)
     },
 
   },

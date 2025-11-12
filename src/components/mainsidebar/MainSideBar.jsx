@@ -27,7 +27,7 @@ if(location.pathname==='/search') dispatch(changeNavbarState(2))
           <i className="bi bi-house sideIcons"></i>Home
         </div>
       </Link>
-      <Link to="/notifications">
+      {/* <Link to="/notifications">
         
         <div
           className={`sideBarItem ${value === 1 ? "active" : ""}`}
@@ -35,7 +35,7 @@ if(location.pathname==='/search') dispatch(changeNavbarState(2))
         >
           <i className="bi bi-bell sideIcons"></i>Notifications
         </div>
-      </Link>
+      </Link> */}
       <Link to="/search">
         <div
           className={`sideBarItem ${value === 2 ? "active" : ""}`}

@@ -94,7 +94,7 @@ function Manage() {
                 width="20"
                 onClick={(e) => {
                   e.stopPropagation();
-                  dispatch(deleteFile(val.id));
+                  dispatch(renameFile(val.id));
                 }}
               />
               <img src={DeleteImg} alt="Folder Image" width="22" style={{marginLeft:'1rem'}} onClick={(e) => {
