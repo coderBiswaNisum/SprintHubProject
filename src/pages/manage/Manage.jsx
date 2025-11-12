@@ -101,32 +101,12 @@ function Manage() {
                   e.stopPropagation();
                   dispatch(deleteFile(val.id));
                 }}/>
-              {/* <i
-                className="bi bi-trash3"
-                style={{ marginLeft: "1rem" }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              ></i> */}
             </div>
           </div>
 
           {val.type === "folder" && (
             <div>
-              {/* <i
-                className="bi bi-folder-plus folderIcon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(createFolder(val.id));
-                }}
-              ></i>
-              <i
-                className="bi bi-file-earmark-plus folderIcon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(createFile(val.id));
-                }}
-              ></i> */}
+           
               <img
                 src={AddFolderImg}
                 alt="Add Folder Image"
