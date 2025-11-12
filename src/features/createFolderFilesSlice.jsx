@@ -76,31 +76,32 @@ let initialState = {
       id: 12,
       type: "folder",
       name: "GAP",
-      children: [{
-      id: 15,
-      type: "file",
-      name: "App Features",
-      url: "https://docs.google.com/document/d/18bM0PKyPLHEDzaTGyK-pMfcujhFSGki-_BpKJOW3cYU/edit?usp=sharing",
-    },{
-      id: 16,
-      type: "file",
-      name: "GAP PowerBI Report",
-      url: "https://app.powerbi.com/reportEmbed?reportId=7c43af94-4751-4aa7-be8c-31ddcf2f102f&autoAuth=true&ctid=06408ebc-5eb8-4b0d-827f-76dd3b58bc84",
-    }],
+      children: [
+        {
+          id: 15,
+          type: "file",
+          name: "App Features",
+          url: "https://docs.google.com/document/d/18bM0PKyPLHEDzaTGyK-pMfcujhFSGki-_BpKJOW3cYU/edit?usp=sharing",
+        },
+        {
+          id: 16,
+          type: "file",
+          name: "GAP PowerBI Report",
+          url: "https://app.powerbi.com/reportEmbed?reportId=7c43af94-4751-4aa7-be8c-31ddcf2f102f&autoAuth=true&ctid=06408ebc-5eb8-4b0d-827f-76dd3b58bc84",
+        },
+      ],
     },
   ],
 };
-// let maxId = 100;
 
 function insertInto(arrVal, gotId, newObj) {
-  if(gotId === 0){
-    arrVal.push(newObj)
-    return arrVal
+  if (gotId === 0) {
+    arrVal.push(newObj);
+    return arrVal;
   }
   let arrVal2 = arrVal?.map((v) => {
     if (v.id === gotId) {
       v.children.push(newObj);
-      // console.log(v.children);
     }
     if (v.children && v.children.length > 0) {
       insertInto(v.children, gotId, newObj);
@@ -110,60 +111,50 @@ function insertInto(arrVal, gotId, newObj) {
   return arrVal2;
 }
 
-function updateLink(arr,targetId){
+function updateLink(arr, targetId) {
+  let arr2 = arr.map((v) => {
+    if (v.id === targetId) {
+      const newLink = prompt(
+        `Your current link is:\n\n${v.url}\n\n Enter the New Link below and press OK to Update:`
+      );
+      newLink && (v.url = newLink);
+    }
+    if (v.children && v.children.length > 0) {
+      updateLink(v.children, targetId);
+    }
+    return v;
+  });
 
- let arr2 = arr.map(v=> {
-  if(v.id===targetId){
-    const newLink = prompt(`Your current link is:\n\n${v.url}\n\n Enter the New Link below and press OK to Update:`)
-    newLink && (v.url = newLink)
-  }
-  if(v.children && v.children.length>0){
-    updateLink(v.children,targetId)
-  }
-  return v
- }
-
-)
-
-return arr2
+  return arr2;
 }
-function renameById(arr,targetId){
+function renameById(arr, targetId) {
+  let arr2 = arr.map((v) => {
+    if (v.id === targetId) {
+      const newName = prompt(
+        `Your current File/Folder Name is:\n\n${v.name}\n\n Enter the New Name below and press OK to Update:`
+      );
+      newName && (v.name = newName);
+    }
+    if (v.children && v.children.length > 0) {
+      renameById(v.children, targetId);
+    }
+    return v;
+  });
 
- let arr2 = arr.map(v=> {
-  if(v.id===targetId){
-    const newName = prompt(`Your current File/Folder Name is:\n\n${v.name}\n\n Enter the New Name below and press OK to Update:`)
-    newName && (v.name = newName)
-  }
-  if(v.children && v.children.length>0){
-    renameById(v.children,targetId)
-  }
-  return v
- }
-
-)
-
-return arr2
+  return arr2;
 }
 
-function deleteById(arr,targetId){
+function deleteById(arr, targetId) {
+  arr.forEach((val, i) => {
+    if (val.id === targetId) {
+      let confirmByUser = confirm("Are you sure, you want to delete it?");
+      confirmByUser && arr.splice(i, 1);
+    }
+    val.children && deleteById(val.children,targetId)
+  });
+  return arr;
 
- let arr2 = arr.map(v=> {
-  if(v.id===targetId){
-    // const newName = prompt(`Your current File/Folder Name is:\n\n${v.name}\n\n Enter the New Name below and press OK to Update:`)
-    let res = confirm('You sure you want to delete?')
-    console.log(res)
-    delete(arr.v)
-    // newName && (v.name = newName)
-  }
-  if(v.children && v.children.length>0){
-    deleteById(v.children,targetId)
-  }
-  return v
- }
-
-)
-
-return arr2
+  // arr.map((v) => console.log(v.id));
 }
 
 const createFolderFilesSlice = createSlice({
@@ -171,15 +162,39 @@ const createFolderFilesSlice = createSlice({
   initialState,
   reducers: {
     createFolder(state, action) {
+      let currentFolderId =  Math.floor(Math.random() * 10000)
       let fileNameEntered = prompt("Enter Your Folder Name:");
       const newVal = insertInto(state.value, action.payload, {
-        id: Math.floor(Math.random() * 10000),
+        id:currentFolderId,
         type: "folder",
         name: fileNameEntered,
         children: [],
       });
-      console.log(newVal);
       state.value = newVal;
+      const projectTeamFile = insertInto(state.value,currentFolderId,{
+        id: Math.floor(Math.random() * 10000),
+        type: "file",
+        url: "https://example.com/",
+        name: 'Project Team',
+      })
+
+      state.value = projectTeamFile
+       const projectPlanFile = insertInto(state.value,currentFolderId,{
+        id: Math.floor(Math.random() * 10000),
+        type: "file",
+        url: "https://example.com/",
+        name: 'Project Plan',
+      })
+
+      state.value = projectPlanFile
+       const projectDashboardFile = insertInto(state.value,currentFolderId,{
+        id: Math.floor(Math.random() * 10000),
+        type: "file",
+        url: "https://example.com/",
+        name: 'Project Dashboard',
+      })
+
+      state.value = projectDashboardFile
     },
     createFile(state, action) {
       const fileNameEntered = prompt("Enter Your File Name:");
@@ -187,28 +202,34 @@ const createFolderFilesSlice = createSlice({
       const newFile = {
         id: Math.floor(Math.random() * 10000),
         type: "file",
-        url:"https://example.com/team",
+        url: "https://example.com/",
         name: fileNameEntered,
       };
       const newVal = insertInto(state.value, objectVal, newFile);
       state.value = newVal;
     },
-    
-    updateFileLink(state,action){
-      let targetId = action.payload
-      state.value = updateLink(state.value,targetId)
-    },
-    renameFile(state,action){
-      let targetId = action.payload
-      state.value = renameById(state.value,targetId)
-    },
-    deleteFile(state,action){
-      let targetId = action.payload
-      state.value = deleteById(state.value,targetId)
-    },
 
+    updateFileLink(state, action) {
+      let targetId = action.payload;
+      state.value = updateLink(state.value, targetId);
+    },
+    renameFile(state, action) {
+      let targetId = action.payload;
+      state.value = renameById(state.value, targetId);
+    },
+    deleteFile(state, action) {
+      let targetId = action.payload;
+      // state.value = deleteById(state.value,targetId)
+      deleteById(state.value, targetId);
+    },
   },
 });
 
-export const { createFile, createFolder,updateFileLink,renameFile,deleteFile } = createFolderFilesSlice.actions;
+export const {
+  createFile,
+  createFolder,
+  updateFileLink,
+  renameFile,
+  deleteFile,
+} = createFolderFilesSlice.actions;
 export default createFolderFilesSlice.reducer;

@@ -52,12 +52,7 @@ function Manage() {
                   }`}
                   style={{ fontSize: "12px", marginRight: "5px" }}
                 ></i>
-                {/* <i
-                  style={{ color: "#f7c224" }}
-                  className={`bi ${
-                    openFolders[val.id] ? "bi-folder2-open" : "bi-folder "
-                  }`}
-                ></i> */}
+         
                 {openFolders[val.id] ? (
                   <img
                     src={FolderOpenImg}
@@ -75,19 +70,12 @@ function Manage() {
                 )}
               </div>
             ) : (
-              // <i className="bi bi-file-earmark"></i>
               <img src={FileImg} alt="Folder Image" width="17" />
             )}
 
             <p>{val.name}</p>
             <div style={{ marginLeft: "auto" }}>
-              {/* <i
-                className="bi bi-pencil-square"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(renameFile(val.id));
-                }}
-              ></i> */}
+            
               <img
                 src={RenameImg}
                 alt="Folder Image"
