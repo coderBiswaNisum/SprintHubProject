@@ -12,6 +12,7 @@ import FolderOpenImg from "/open-folder.webp";
 import FileImg from "/file.webp";
 import AddFolderImg from "/add-folder.webp";
 import AddFileImg from "/add-document.webp";
+import { changeNavbarState } from "../../../features/navbarSlice";
 
 function FolderSection() {
   const value = useSelector((state) => state.create.value);
@@ -19,6 +20,8 @@ function FolderSection() {
   const dispatch = useDispatch();
 
   const [openFolders, setOpenFolders] = useState({});
+  let currentPathname = window.location.pathname
+  currentPathname === '/browse' && dispatch(changeNavbarState(3))
 
   const toggleFolder = (folderId) => {
     setOpenFolders((prev) => ({

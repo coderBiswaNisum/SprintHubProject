@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {link:''}
 
 export const openFileSlice = createSlice({
@@ -8,7 +9,7 @@ export const openFileSlice = createSlice({
     reducers:{
         openFileLink(state,action){
             state.link = action.payload
-        },
+        }, 
         
     }
 })

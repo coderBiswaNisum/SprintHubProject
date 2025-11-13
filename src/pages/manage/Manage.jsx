@@ -46,6 +46,7 @@ function Manage() {
           >
             {val.type === "folder" ? (
               <div>
+                
                 <i
                   className={`bi ${
                     openFolders[val.id] ? "bi-chevron-down" : "bi-chevron-right"
@@ -74,21 +75,28 @@ function Manage() {
             )}
 
             <p>{val.name}</p>
-            <div style={{ marginLeft: "auto" }}>
+            <div style={{ marginLeft: "auto",display:'flex' }}>
             
-              <img
+              <div style={{display:'flex'}} onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(renameFile(val.id));
+                }}>
+                <img
                 src={RenameImg}
                 alt="Folder Image"
                 width="20"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  dispatch(renameFile(val.id));
-                }}
+               
               />
-              <img src={DeleteImg} alt="Folder Image" width="22" style={{marginLeft:'1rem'}} onClick={(e) => {
+              <p style={{fontWeight:'normal',marginLeft:'5px'}}>Rename</p>
+              
+              </div>
+              <div style={{display:'flex'}} onClick={(e) => {
                   e.stopPropagation();
                   dispatch(deleteFile(val.id));
-                }}/>
+                }}>
+                <img src={DeleteImg} alt="Folder Image" width="22" style={{marginLeft:'1rem'}} />
+                <p style={{fontWeight:'normal'}}>Delete</p>
+              </div>
             </div>
           </div>
 

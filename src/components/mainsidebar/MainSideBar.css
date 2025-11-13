@@ -22,7 +22,7 @@
 .sideBarItem.active{
   display: flex;
   flex-direction: column;
-  background: #d9f5ff;
+  background: #ecfaff;
   align-items: center;
   color: rgb(0, 0, 131);
   font-size:10px;

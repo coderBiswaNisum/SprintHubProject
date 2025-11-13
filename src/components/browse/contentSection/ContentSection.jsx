@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./ContentSection.css";
 import { useSelector } from "react-redux";
 
-function ContentSection() {
-  const selectedFileUrl = useSelector((state) => state.changeFileLink.link);
+export default function ContentSection({selectedFileUrl}) {
+  // const selectedFileUrl = useSelector((state) => state.changeFileLink.link);
   const breacrumbTitle = useSelector((state) => state.breacrumbTitle.value);
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log("this is from browse", selectedFileUrl);
   useEffect(() => {
     if (selectedFileUrl) {
       setIsLoading(true);
@@ -18,7 +18,10 @@ function ContentSection() {
       <div className="breadCrumb">
         <h6>
           {" "}
-          <i className="bi bi-file-earmark-check" style={{marginRight:'5px'}}></i>
+          <i
+            className="bi bi-file-earmark-check"
+            style={{ marginRight: "5px" }}
+          ></i>
           {breacrumbTitle}
         </h6>
       </div>
@@ -50,7 +53,6 @@ function ContentSection() {
             className="contentSection"
             src={selectedFileUrl}
             title="Google Sheet Viewer"
-            // style={{ width: "100%", height: "90vh", border: "none" }}
             onLoad={() => setIsLoading(false)}
           ></iframe>
         ) : (
@@ -61,4 +63,4 @@ function ContentSection() {
   );
 }
 
-export default ContentSection;
+// export default ContentSection;

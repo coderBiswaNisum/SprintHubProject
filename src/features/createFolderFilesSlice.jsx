@@ -153,8 +153,6 @@ function deleteById(arr, targetId) {
     val.children && deleteById(val.children,targetId)
   });
   return arr;
-
-  // arr.map((v) => console.log(v.id));
 }
 
 const createFolderFilesSlice = createSlice({
@@ -219,8 +217,8 @@ const createFolderFilesSlice = createSlice({
     },
     deleteFile(state, action) {
       let targetId = action.payload;
-      // state.value = deleteById(state.value,targetId)
       deleteById(state.value, targetId);
+      alert('Deleted Successfully.')
     },
   },
 });

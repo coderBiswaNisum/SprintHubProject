@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import MainLogo from "/nisum-technologies-logo.webp";
 import CreateFileImg from "/add-document.webp";
@@ -11,12 +12,16 @@ import {
 import folderImg from "/folder.webp";
 import openFolderImg from "/open-folder.webp";
 import fileImg from "/file.webp";
+import { openFileLink } from "../../features/openFileSlice";
+import { changeBreadcrumb } from "../../features/breadcrumbSlice";
+
+
 
 function Home() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [openedFolder, setOpenedFolder] = useState([]);
   const objValue = useSelector((state) => state.create.value);
-  // console.log(objValue);
 
   function toggleFolder(id) {
     if (openedFolder.includes(id)) {
@@ -26,8 +31,19 @@ function Home() {
       setOpenedFolder(tempArr);
     } else {
       setOpenedFolder((prev) => [...prev, id]);
-      // console.log(openedFolder)
     }
+  }
+  const fileClicked = (link,name) =>{
+    navigate('/browse')
+    
+    //change content section with the file link
+
+    dispatch(openFileLink(link))
+
+    // change breadcrumb accordingly
+    dispatch(changeBreadcrumb(name))
+
+// change folder structure to save opened file when visited browse page from home
   }
 
   function viewFolder(x = objValue) {
@@ -37,7 +53,8 @@ function Home() {
           key={val.name}
           onClick={(e) => {
             e.stopPropagation();
-            val.type === "folder" ? toggleFolder(val.id) : "";
+            val.type === "folder" ? toggleFolder(val.id) : fileClicked(val.url,val.name);
+            
           }}
         >
           <div style={{ display: "flex", cursor: "pointer" }}>
@@ -90,7 +107,6 @@ function Home() {
         >
           <img src={CreateFileImg} alt="Create New File" />
           <h6>Create New File</h6>
-          {/* <i class="bi bi-arrow-right"></i> */}
         </div>
       </div>
       <div className="existingProjects">
