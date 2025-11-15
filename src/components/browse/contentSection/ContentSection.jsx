@@ -3,10 +3,11 @@ import "./ContentSection.css";
 import { useSelector } from "react-redux";
 
 export default function ContentSection({selectedFileUrl}) {
-  // const selectedFileUrl = useSelector((state) => state.changeFileLink.link);
   const breacrumbTitle = useSelector((state) => state.breacrumbTitle.value);
   const [isLoading, setIsLoading] = useState(false);
   console.log("this is from browse", selectedFileUrl);
+
+
   useEffect(() => {
     if (selectedFileUrl) {
       setIsLoading(true);

@@ -11,6 +11,7 @@ export const openFileSlice = createSlice({
             state.link = action.payload
         }, 
         
+        
     }
 })
 

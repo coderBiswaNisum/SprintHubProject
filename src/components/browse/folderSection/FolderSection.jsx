@@ -81,8 +81,8 @@ function FolderSection() {
 
           {val.type === "folder" && (
             <div>
-           
-              <img
+           <h6>︙</h6>
+              {/* <img
                 src={AddFolderImg}
                 alt="Add Folder Image"
                 width="20"
@@ -90,9 +90,9 @@ function FolderSection() {
                   e.stopPropagation();
                   dispatch(createFolder(val.id));
                 }}
-              />
+              /> */}
               
-              <img
+              {/* <img
                 src={AddFileImg}
                 alt="Add File Image"
                 width="19"
@@ -101,7 +101,7 @@ function FolderSection() {
                   e.stopPropagation();
                   dispatch(createFile(val.id));
                 }}
-              />
+              /> */}
             </div>
           )}
         </div>

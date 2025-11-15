@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './Search.css'
 
 function Search() {
   //  let openedFolder = [];
@@ -99,6 +100,9 @@ function Search() {
   const [toggleFolder, setToggleFolder] = useState([]);
 
   function openSubfolders(id) {
+    const a = localStorage.getItem('okta-token-storage')
+     console.log(a)
+    
     console.log(id);
     if (!toggleFolder.includes(id)) {
       let a = [...toggleFolder, id];
@@ -112,30 +116,13 @@ function Search() {
   }
 
   return (
-    <div style={{ display: "flex", width: "100%" }}>
-      <div style={{ border: "1px solid black", width: "20%" }}>
-        <h6>This is the Folder Structure Section</h6>
-        {initialState.value.map((v) => (
-          <div style={{ border: "1px solid blue" }} key={v.name}>
-            <div onClick={() => openSubfolders(v.id)}>
-              <h2>{v.name}</h2>
-            </div>
-            {toggleFolder.includes(v.id) &&
-              v?.children?.length > 0 &&
-              v?.children?.map((val) => (
-                <div onClick={() => openSubfolders(val.id)} key={val.name}>
-                  <p>{val.name}</p>
-                </div>
-              ))}
-          </div>
-        ))}
-      </div>
-
-      <div style={{ border: "1px solid black", width: "80%" }}>
-        This is the content section
-      </div>
+    <div className="searchSection">
+      <h5>Search for Files/Folders by Name:</h5>
+      <input type='text' className="inputField" id='searchBar' autoFocus/>
     </div>
   );
 }
 
 export default Search;
+
+

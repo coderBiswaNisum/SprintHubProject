@@ -16,6 +16,7 @@ import AddFolderImg from "/add-folder.webp";
 import AddFileImg from "/add-document.webp";
 import DeleteImg from "/delete.webp";
 import RenameImg from "/rename.webp";
+import AddUser from "/adduser.webp";
 
 function Manage() {
   const value = useSelector((state) => state.create.value);
@@ -37,7 +38,7 @@ function Manage() {
         <div className="subFolderTabs" style={{ justifyContent: "flex-start" }}>
           <div
             className={val.type === "folder" ? "isFolder" : "isFile"}
-            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+            style={{ display: "flex", alignItems: "center", cursor: "pointer",border:'1px solid #0583ff',borderRadius:'5px' }}
             onClick={() =>
               val.type === "folder"
                 ? toggleFolder(val.id)
@@ -78,6 +79,20 @@ function Manage() {
             <div style={{ marginLeft: "auto",display:'flex' }}>
             
               <div style={{display:'flex'}} onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(renameFile(val.id));
+                }}>
+                <img
+                src={AddUser}
+                alt="Folder Image"
+                width="20"
+               
+              />
+              <p style={{fontWeight:'normal',marginLeft:'5px'}}>Add User</p>
+              
+              </div>
+              
+              <div style={{display:'flex',marginLeft:'1rem'}} onClick={(e) => {
                   e.stopPropagation();
                   dispatch(renameFile(val.id));
                 }}>
@@ -131,7 +146,7 @@ function Manage() {
         {val.type === "folder" &&
           openFolders[val.id] &&
           val.children?.length > 0 && (
-            <div className="subFolderChildren" style={{ marginLeft: "20px" }}>
+            <div className="subFolderChildren" style={{ marginLeft: "20px",}}>
               {displayLoop(val.children)}
             </div>
           )}

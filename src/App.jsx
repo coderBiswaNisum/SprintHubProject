@@ -13,19 +13,6 @@ function App() {
   const navbarState = useSelector(state=> state.navbarChange.value)
 
 
-  function iframeValue(){
-      return selectedFileUrl ? (
-          <iframe
-            className="contentSection"
-            src={selectedFileUrl}
-            title="Google Sheet Viewer"
-            onLoad={() => setIsLoading(false)}
-          ></iframe>
-        ) : (
-          <p style={{ textAlign: "center" }}>No files selected.</p>
-        )
-  }
-
 
   return (
     <div className="wholeScreen">
