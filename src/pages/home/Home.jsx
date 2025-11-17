@@ -124,6 +124,9 @@ function searchByName(searchText) {
 
   return (
     <div className="home">
+             <img src={MainLogo} alt="Nisum Logo" width={160} height={52} 
+             style={{position:'absolute',right:'1.5rem',top:'1.5rem',backgroundColor:'white',boxShadow:'-2px 2px 6px grey',padding: '15px',borderRadius:'5px'}}/>
+
       <div
         style={{
           display: "flex",
@@ -131,10 +134,9 @@ function searchByName(searchText) {
           margin: "1.5rem 0rem 2rem 0rem",
         }}
       >
-        <img src={SprintHubLogo} alt="Nisum Logo" width={260} />
-        <img src={MainLogo} alt="Nisum Logo" width={200} height={40} />
+        <img src={SprintHubLogo} alt="SprintHub Logo" width={300} />
+       
       </div>
-      {/* <h5 style={{ marginTop: "0.5rem" }}> Welcome to Nisum Sheets </h5> */}
       <div ref={searchRef}>
         <input
         type="text"

@@ -23,6 +23,7 @@ import { changeNavbarState } from "../../../features/navbarSlice";
 
 function FolderSection() {
   const [optionSelected, setOptionSelected] = useState(0);
+  const [fileSelected, setFileSelected] = useState(0);
   const value = useSelector((state) => state.create.value);
   const navbarStatus = useSelector((state) => state.navbarChange.value);
   const dispatch = useDispatch();
@@ -143,7 +144,7 @@ function displayLoop(x) {
           onClick={() =>
             val.type === "folder"
               ? toggleFolder(val.id)
-              : (dispatch(openFileLink(val.url)), dispatch(changeBreadcrumb(val.name)))
+              : (dispatch(openFileLink(val.url)), dispatch(changeBreadcrumb(val.name)),setFileSelected(val.id))
           }
         >
           {val.type === "folder" ? (
@@ -175,7 +176,7 @@ function displayLoop(x) {
             <img src={FileImg} alt="File Image" width="17" />
           )}
 
-          <p>{val.name}</p>
+          <p className={val.id===fileSelected && 'selectedFileStyle'}>{val.name}</p>
         </div>
 
         <div className="options" onClick={() => handleOptions(val)}>

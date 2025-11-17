@@ -39,6 +39,7 @@
   margin: 0;
   padding-left: 3px;
   font-size: 12px;
+  font-weight:600;
 }
 
 .isFolder {
@@ -109,4 +110,12 @@
   align-items: center;
   padding: 4px;
 padding-left: 8px;
+}
+
+.selectedFileStyle{
+  color:rgb(67, 67, 255);
+  font-style:italic;
+  font-weight: bold;
+  text-decoration: underline;
+  
 }

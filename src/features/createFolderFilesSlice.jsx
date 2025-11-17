@@ -10,18 +10,24 @@ let initialState = {
         {
           id: 2,
           type: "folder",
-          name: "Frontend Team",
+          name: "Compute & Integration",
           children: [
             {
               id: 3,
               type: "file",
-              name: "Team",
+              name: "Project Dashboard",
               url: "https://example.com/team",
             },
             {
               id: 4,
               type: "file",
-              name: "Work Plan",
+              name: "Project Plan",
+              url: "https://example.com/work-plan",
+            },
+             {
+              id: 41,
+              type: "file",
+              name: "Project Team",
               url: "https://example.com/work-plan",
             },
           
@@ -30,28 +36,28 @@ let initialState = {
         {
           id: 18,
           type: "folder",
-          name: "Backend Team",
+          name: "Shipping Project",
           children: [
             {
-              id: 19,
+              id: 191,
               type: "file",
-              name: "Team",
+              name: "Project Team",
               url: "https://example.com/team",
             },
             {
-              id: 20,
+              id: 201,
               type: "file",
-              name: "Work Plan",
+              name: "Project Plan",
+              url: "https://example.com/work-plan",
+            },
+             {
+              id: 234,
+              type: "file",
+              name: "Project Dashboard",
               url: "https://example.com/work-plan",
             },
           
           ],
-        },
-        {
-          id: 8,
-          type: "file",
-          name: "Project Documentation",
-          url: "https://example.com/work-progress",
         },
       ],
     },
@@ -61,10 +67,56 @@ let initialState = {
       name: "WSI",
       children: [
         {
-          id: 10,
-          type: "file",
-          name: "Project Details",
-          url: "https://docs.google.com/document/d/1cgnD9N2TPCvFOpk8AW4-zMVDmLLJoWKB/edit?usp=sharing&ouid=102042161869103939919&rtpof=true&sd=true",
+          id: 18,
+          type: "folder",
+          name: "Digital Experience",
+          children: [
+            {
+              id: 1912,
+              type: "file",
+              name: "Project Team",
+              url: "https://example.com/team",
+            },
+            {
+              id: 2012,
+              type: "file",
+              name: "Project Plan",
+              url: "https://example.com/work-plan",
+            },
+             {
+              id: 2342,
+              type: "file",
+              name: "Project Dashboard",
+              url: "https://example.com/work-plan",
+            },
+          
+          ],
+        },
+          {
+          id: 818,
+          type: "folder",
+          name: "Product Catalogue",
+          children: [
+            {
+              id: 1191,
+              type: "file",
+              name: "Project Team",
+              url: "https://example.com/team",
+            },
+            {
+              id: 1201,
+              type: "file",
+              name: "Project Plan",
+              url: "https://example.com/work-plan",
+            },
+             {
+              id: 1234,
+              type: "file",
+              name: "Project Dashboard",
+              url: "https://example.com/work-plan",
+            },
+          
+          ],
         },
       ],
     },
@@ -74,8 +126,38 @@ let initialState = {
       type: "folder",
       name: "GAP",
       children: [
-         
-        {
+          {
+          id: 218,
+          type: "folder",
+          name: "Data & Insights",
+          children: [
+            {
+              id: 2191,
+              type: "file",
+              name: "Project Team",
+              url: "https://example.com/team",
+            },
+            {
+              id: 2201,
+              type: "file",
+              name: "Project Plan",
+              url: "https://example.com/work-plan",
+            },
+             {
+              id: 2234,
+              type: "file",
+              name: "Project Dashboard",
+              url: "https://example.com/work-plan",
+            },
+          
+          ],
+        },
+           {
+          id: 318,
+          type: "folder",
+          name: "Product 360 Sourcing",
+          children: [
+             {
           id: 11,
           type: "file",
           name: "Project Plan",
@@ -94,12 +176,63 @@ let initialState = {
           name: "Project Dashboard",
           url: "https://app.powerbi.com/reportEmbed?reportId=7c43af94-4751-4aa7-be8c-31ddcf2f102f&autoAuth=true&ctid=06408ebc-5eb8-4b0d-827f-76dd3b58bc84",
         },
-        {
-          id: 17,
-          type: "file",
-          name: "Project Documentation",
-          url: "https://docs.google.com/document/d/18bM0PKyPLHEDzaTGyK-pMfcujhFSGki-_BpKJOW3cYU/edit?usp=sharing",
+        
+          
+          ],
         },
+          {
+          id: 418,
+          type: "folder",
+          name: "Inbound Transportation",
+          children: [
+            {
+              id: 4191,
+              type: "file",
+              name: "Project Team",
+              url: "https://example.com/team",
+            },
+            {
+              id: 4201,
+              type: "file",
+              name: "Project Plan",
+              url: "https://example.com/work-plan",
+            },
+             {
+              id: 4234,
+              type: "file",
+              name: "Project Dashboard",
+              url: "https://example.com/work-plan",
+            },
+          
+          ],
+        },
+          {
+          id: 518,
+          type: "folder",
+          name: "Plan Reporting",
+          children: [
+            {
+              id: 5191,
+              type: "file",
+              name: "Project Team",
+              url: "https://example.com/team",
+            },
+            {
+              id: 5201,
+              type: "file",
+              name: "Project Plan",
+              url: "https://example.com/work-plan",
+            },
+             {
+              id: 5234,
+              type: "file",
+              name: "Project Dashboard",
+              url: "https://example.com/work-plan",
+            },
+          
+          ],
+        },
+      
       ],
     },
   ],
@@ -181,7 +314,8 @@ const createFolderFilesSlice = createSlice({
         name: fileNameEntered,
         children: [],
       });
-      state.value = newVal;
+     if(action.payload !== 0){
+       state.value = newVal;
       const projectTeamFile = insertInto(state.value, currentFolderId, {
         id: Math.floor(Math.random() * 10000),
         type: "file",
@@ -206,6 +340,7 @@ const createFolderFilesSlice = createSlice({
       });
 
       state.value = projectDashboardFile;
+     }
     },
     createFile(state, action) {
       const fileNameEntered = prompt("Enter Your File Name:");
