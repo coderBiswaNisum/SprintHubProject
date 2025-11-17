@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 export default function ContentSection({selectedFileUrl}) {
   const breacrumbTitle = useSelector((state) => state.breacrumbTitle.value);
   const [isLoading, setIsLoading] = useState(false);
-  console.log("this is from browse", selectedFileUrl);
+  // console.log("this is from browse", selectedFileUrl);
 
 
   useEffect(() => {

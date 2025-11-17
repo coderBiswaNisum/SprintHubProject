@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import MainLogo from "/nisum-technologies-logo.webp";
@@ -14,14 +14,59 @@ import openFolderImg from "/open-folder.webp";
 import fileImg from "/file.webp";
 import { openFileLink } from "../../features/openFileSlice";
 import { changeBreadcrumb } from "../../features/breadcrumbSlice";
-
-
+import SprintHubLogo from "/SprintHubLogo.png";
 
 function Home() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openedFolder, setOpenedFolder] = useState([]);
+  const [searchOutput, setSearchOutput] = useState([]);
   const objValue = useSelector((state) => state.create.value);
+
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchOutput([]); 
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+function searchByName(searchText) {
+  if (!searchText.trim()) {
+    setSearchOutput([]);
+    return;
+  }
+
+  const obj = objValue;
+  const safe = escapeRegex(searchText);
+  const regex = new RegExp(safe, "i");
+
+  let results = [];
+
+  function recurse(node) {
+    if (Array.isArray(node)) {
+      node.forEach((item) => recurse(item));
+    } else if (typeof node === "object" && node !== null) {
+      if (node.name && regex.test(node.name)) {
+        results.push(node);
+      }
+      Object.values(node).forEach((value) => recurse(value));
+    }
+  }
+
+  recurse(obj);
+  setSearchOutput(results);
+}
+
 
   function toggleFolder(id) {
     if (openedFolder.includes(id)) {
@@ -33,18 +78,18 @@ function Home() {
       setOpenedFolder((prev) => [...prev, id]);
     }
   }
-  const fileClicked = (link,name) =>{
-    navigate('/browse')
-    
+  const fileClicked = (link, name) => {
+    navigate("/browse");
+
     //change content section with the file link
 
-    dispatch(openFileLink(link))
+    dispatch(openFileLink(link));
 
     // change breadcrumb accordingly
-    dispatch(changeBreadcrumb(name))
+    dispatch(changeBreadcrumb(name));
 
-// change folder structure to save opened file when visited browse page from home
-  }
+    // change folder structure to save opened file when visited browse page from home
+  };
 
   function viewFolder(x = objValue) {
     return x.map((val) => {
@@ -53,8 +98,9 @@ function Home() {
           key={val.name}
           onClick={(e) => {
             e.stopPropagation();
-            val.type === "folder" ? toggleFolder(val.id) : fileClicked(val.url,val.name);
-            
+            val.type === "folder"
+              ? toggleFolder(val.id)
+              : fileClicked(val.url, val.name);
           }}
         >
           <div style={{ display: "flex", cursor: "pointer" }}>
@@ -78,20 +124,33 @@ function Home() {
 
   return (
     <div className="home">
-      <center>
-        <img
-          src={MainLogo}
-          alt="Nisum Logo"
-          width={200}
-          style={{ marginTop: "0.8rem" }}
-        />
-        <h5 style={{ marginTop: "0.5rem" }}> Welcome to Nisum Sheets </h5>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          margin: "1.5rem 0rem 2rem 0rem",
+        }}
+      >
+        <img src={SprintHubLogo} alt="Nisum Logo" width={260} />
+        <img src={MainLogo} alt="Nisum Logo" width={200} height={40} />
+      </div>
+      {/* <h5 style={{ marginTop: "0.5rem" }}> Welcome to Nisum Sheets </h5> */}
+      <div ref={searchRef}>
         <input
-          type="text"
-          className="searchBar"
-          placeholder="  🔍︎  Search File/Folder here"
-        />
-      </center>
+        type="text"
+        className="searchBar"
+        placeholder="  🔍︎  Search File/Folder here"
+        onChange={(e) => searchByName(e.target.value)}
+      />
+
+      {searchOutput.length > 0 && (
+        <div className="searchItems">
+          {searchOutput?.map((val) => {
+            return <p>{val.name}</p>;
+          })}
+        </div>
+      )}
+      </div>
 
       <div className="createSection">
         <div

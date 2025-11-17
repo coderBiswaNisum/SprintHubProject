@@ -10,7 +10,7 @@ let initialState = {
         {
           id: 2,
           type: "folder",
-          name: "Sub Folder",
+          name: "Frontend Team",
           children: [
             {
               id: 3,
@@ -24,31 +24,33 @@ let initialState = {
               name: "Work Plan",
               url: "https://example.com/work-plan",
             },
+          
+          ],
+        },
+        {
+          id: 18,
+          type: "folder",
+          name: "Backend Team",
+          children: [
             {
-              id: 5,
-              type: "folder",
-              name: "Sub Folder2",
-              children: [
-                {
-                  id: 6,
-                  type: "file",
-                  name: "Team 2",
-                  url: "https://example.com/team-2",
-                },
-                {
-                  id: 7,
-                  type: "file",
-                  name: "Work Plan 2",
-                  url: "https://example.com/work-plan-2",
-                },
-              ],
+              id: 19,
+              type: "file",
+              name: "Team",
+              url: "https://example.com/team",
             },
+            {
+              id: 20,
+              type: "file",
+              name: "Work Plan",
+              url: "https://example.com/work-plan",
+            },
+          
           ],
         },
         {
           id: 8,
           type: "file",
-          name: "Work Progress",
+          name: "Project Documentation",
           url: "https://example.com/work-progress",
         },
       ],
@@ -56,7 +58,7 @@ let initialState = {
     {
       id: 9,
       type: "folder",
-      name: "MSI",
+      name: "WSI",
       children: [
         {
           id: 10,
@@ -66,28 +68,37 @@ let initialState = {
         },
       ],
     },
-    {
-      id: 11,
-      type: "file",
-      name: "Sprint _Hub",
-      url: "https://docs.google.com/spreadsheets/d/1tUO5g6odx8j1_wCYe6_qFrTc67p2PXPNVHlQ8iwhj3o/edit?usp=sharing",
-    },
+
     {
       id: 12,
       type: "folder",
       name: "GAP",
       children: [
+         
+        {
+          id: 11,
+          type: "file",
+          name: "Project Plan",
+          url: "https://docs.google.com/spreadsheets/d/1tUO5g6odx8j1_wCYe6_qFrTc67p2PXPNVHlQ8iwhj3o/edit?usp=sharing",
+        },
+        
         {
           id: 15,
           type: "file",
-          name: "App Features",
-          url: "https://docs.google.com/document/d/18bM0PKyPLHEDzaTGyK-pMfcujhFSGki-_BpKJOW3cYU/edit?usp=sharing",
+          name: "Project Team",
+          url: "https://docs.google.com/spreadsheets/d/180ww3cCVw8uonS-nUmgOIjFfgkYdA4y3RiWV86hEU4s/edit?usp=sharing",
         },
         {
           id: 16,
           type: "file",
-          name: "GAP PowerBI Report",
+          name: "Project Dashboard",
           url: "https://app.powerbi.com/reportEmbed?reportId=7c43af94-4751-4aa7-be8c-31ddcf2f102f&autoAuth=true&ctid=06408ebc-5eb8-4b0d-827f-76dd3b58bc84",
+        },
+        {
+          id: 17,
+          type: "file",
+          name: "Project Documentation",
+          url: "https://docs.google.com/document/d/18bM0PKyPLHEDzaTGyK-pMfcujhFSGki-_BpKJOW3cYU/edit?usp=sharing",
         },
       ],
     },
@@ -150,7 +161,7 @@ function deleteById(arr, targetId) {
       let confirmByUser = confirm("Are you sure, you want to delete it?");
       confirmByUser && arr.splice(i, 1);
     }
-    val.children && deleteById(val.children,targetId)
+    val.children && deleteById(val.children, targetId);
   });
   return arr;
 }
@@ -160,39 +171,41 @@ const createFolderFilesSlice = createSlice({
   initialState,
   reducers: {
     createFolder(state, action) {
-      let currentFolderId =  Math.floor(Math.random() * 10000)
+      let currentFolderId = Math.floor(Math.random() * 10000);
+
       let fileNameEntered = prompt("Enter Your Folder Name:");
+      // fileNameEntered.split('').length <=1 && 
       const newVal = insertInto(state.value, action.payload, {
-        id:currentFolderId,
+        id: currentFolderId,
         type: "folder",
         name: fileNameEntered,
         children: [],
       });
       state.value = newVal;
-      const projectTeamFile = insertInto(state.value,currentFolderId,{
+      const projectTeamFile = insertInto(state.value, currentFolderId, {
         id: Math.floor(Math.random() * 10000),
         type: "file",
         url: "https://example.com/",
-        name: 'Project Team',
-      })
+        name: "Project Team",
+      });
 
-      state.value = projectTeamFile
-       const projectPlanFile = insertInto(state.value,currentFolderId,{
+      state.value = projectTeamFile;
+      const projectPlanFile = insertInto(state.value, currentFolderId, {
         id: Math.floor(Math.random() * 10000),
         type: "file",
         url: "https://example.com/",
-        name: 'Project Plan',
-      })
+        name: "Project Plan",
+      });
 
-      state.value = projectPlanFile
-       const projectDashboardFile = insertInto(state.value,currentFolderId,{
+      state.value = projectPlanFile;
+      const projectDashboardFile = insertInto(state.value, currentFolderId, {
         id: Math.floor(Math.random() * 10000),
         type: "file",
         url: "https://example.com/",
-        name: 'Project Dashboard',
-      })
+        name: "Project Dashboard",
+      });
 
-      state.value = projectDashboardFile
+      state.value = projectDashboardFile;
     },
     createFile(state, action) {
       const fileNameEntered = prompt("Enter Your File Name:");
@@ -218,7 +231,7 @@ const createFolderFilesSlice = createSlice({
     deleteFile(state, action) {
       let targetId = action.payload;
       deleteById(state.value, targetId);
-      alert('Deleted Successfully.')
+      // alert('Deleted Successfully.')
     },
   },
 });

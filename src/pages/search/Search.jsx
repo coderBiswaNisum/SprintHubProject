@@ -59,7 +59,7 @@ function Search() {
       {
         id: 9,
         type: "folder",
-        name: "MSI",
+        name: "WSI",
         children: [
           {
             id: 10,
