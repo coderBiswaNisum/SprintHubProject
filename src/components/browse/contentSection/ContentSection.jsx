@@ -57,7 +57,7 @@ export default function ContentSection({selectedFileUrl}) {
             onLoad={() => setIsLoading(false)}
           ></iframe>
         ) : (
-          <p style={{ textAlign: "center" }}>No files selected.</p>
+          <p style={{ textAlign: "center",marginTop:'25%' }}>No files selected.</p>
         )}
       </div>
     </div>

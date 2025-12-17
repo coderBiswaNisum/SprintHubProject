@@ -124,7 +124,7 @@ function searchByName(searchText) {
 
   return (
     <div className="home">
-             <img src={MainLogo} alt="Nisum Logo" width={160} height={52} 
+             <img src={MainLogo} alt="Nisum Logo" width={160} height={55} 
              style={{position:'absolute',right:'1.5rem',top:'1.5rem',backgroundColor:'white',boxShadow:'-2px 2px 6px grey',padding: '15px',borderRadius:'5px'}}/>
 
       <div
