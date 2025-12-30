@@ -16,7 +16,7 @@ if(location.pathname==='/search') dispatch(changeNavbarState(2))
  const dispatch = useDispatch();
   const value = useSelector((state) => state.navbarChange.value);
 
-
+//This line is just to check if the latest code is pushed or not
   return (
     <div className="sideBar">
       <Link to="/">
